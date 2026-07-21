@@ -886,6 +886,7 @@
   (function(){
     const target = new Date('2026-09-05T11:00:00+09:00');
     const el = document.getElementById('ddayCount');
+    if(!el) return;
     function update(){
       const now = new Date();
       const diffMs = target - now;
@@ -899,6 +900,7 @@
       }
     }
     update();
+    setInterval(update, 60 * 1000); // 1분마다 자동 갱신
   })();
 </script>
 </body>
