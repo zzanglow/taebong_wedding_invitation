@@ -887,10 +887,14 @@
     const target = new Date('2026-09-05T11:00:00+09:00');
     const el = document.getElementById('ddayCount');
     if(!el) return;
+    function startOfDay(d){
+      // KST(UTC+9) 기준 자정으로 정규화
+      const kst = new Date(d.getTime() + 9*60*60*1000);
+      return Date.UTC(kst.getUTCFullYear(), kst.getUTCMonth(), kst.getUTCDate());
+    }
     function update(){
       const now = new Date();
-      const diffMs = target - now;
-      const diffDays = Math.ceil(diffMs / (1000*60*60*24));
+      const diffDays = Math.round((startOfDay(target) - startOfDay(now)) / (1000*60*60*24));
       if(diffDays > 0){
         el.innerHTML = '태현 · 유빈의 결혼식까지 <b>D-' + diffDays + '</b>';
       } else if(diffDays === 0){
